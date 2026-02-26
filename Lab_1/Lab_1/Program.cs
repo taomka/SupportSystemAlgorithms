@@ -28,13 +28,32 @@ namespace Lab_1
             {
                 Console.WriteLine("Матриця є квадратною. Переходимо до розв'язання СЛАР.\n");
 
-                double[] vectorB = new double[n];
+                double[]? vectorB = null;
                 Console.WriteLine("--- Введення вектора вільних членів B ---");
-                for (int i = 0; i < n; i++)
+                Console.WriteLine("Щоб пропустити введення вектора B і обчислити лише ранг, натисніть Enter без введення значення для B[1].");
+                Console.Write($"B[1]: ");
+                string? firstInput = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(firstInput))
                 {
-                    vectorB[i] = ReadHelpers.ReadDouble($"B[{i + 1}]: ");
+                    RunProtocolExecution(matrixA, null);
                 }
-                RunProtocolExecution(matrixA, vectorB);
+                else
+                {
+                    vectorB = new double[n];
+                    if (!double.TryParse(firstInput, out double firstVal))
+                    {
+                        firstVal = ReadHelpers.ReadDouble($"B[1]: ");
+                    }
+                    vectorB[0] = firstVal;
+
+                    for (int i = 1; i < n; i++)
+                    {
+                        vectorB[i] = ReadHelpers.ReadDouble($"B[{i + 1}]: ");
+                    }
+
+                    RunProtocolExecution(matrixA, vectorB);
+                }
             }
             else
             {
@@ -46,10 +65,17 @@ namespace Lab_1
             }
         }
 
-        static void RunProtocolExecution(double[,] matrixA, double[] vectorB)
+        static void RunProtocolExecution(double[,] matrixA, double[]? vectorB)
         {
             int rank = CalculateRank(matrixA);
             Console.WriteLine($"Ранг вхідної матриці A: r = {rank}\n");
+
+            if (vectorB == null)
+            {
+                Console.WriteLine("Ввід вектора B був пропущений. Виконано обчислення лише рангу матриці.");
+                return;
+            }
+
             Console.WriteLine("Знаходження розв’язків СЛАР 1-м методом (за допомогою оберненої матриці):");
             double[,]? inverseMatrix = FindInverseMatrix(matrixA);
 
