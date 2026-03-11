@@ -1,4 +1,4 @@
-﻿namespace Lab_2_Part_B
+﻿namespace Lab_1_Part_B
 {
     class ConsoleHelpers
     {
