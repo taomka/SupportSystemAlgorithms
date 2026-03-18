@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab_1_Part_C.ConsoleHelpers">
+    <Position X="4.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQgAAAAAAAAAAAEAAAAAAEAAA=</HashCode>
+      <FileName>ConsoleHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab_1_Part_C.Program">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab_1_Part_C.SimplexAlgorithm">
+    <Position X="2.25" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAUABAAAAAAIAIAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimplexAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
