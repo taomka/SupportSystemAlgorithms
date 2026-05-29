@@ -13,7 +13,8 @@
             Console.WriteLine("Матриця корисності результатів U:\n");
             for (int i = 0; i < m; i++)
             {
-                for (int j = 0; j < n; j++) Console.Write($"{U[i, j],3} ");
+                for (int j = 0; j < n; j++)
+                    Console.Write($"{U[i, j],3} ");
                 Console.WriteLine();
             }
 
@@ -37,14 +38,25 @@
             for (int i = 0; i < m; i++)
             {
                 rowMins[i] = U[i, 0];
-                for (int j = 1; j < n; j++) if (U[i, j] < rowMins[i]) rowMins[i] = U[i, j];
+                for (int j = 1; j < n; j++)
+                {
+                    if (U[i, j] < rowMins[i])
+                        rowMins[i] = U[i, j];
+                }
                 Console.WriteLine($"min в рядку {i + 1}: {rowMins[i]}");
             }
             double waldMax = rowMins.Max();
             Console.WriteLine($"\nМаксимальний елемент: {waldMax}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(rowMins[i] - waldMax) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(rowMins[i] - waldMax) < 1e-9)
+                {
+                    opt.Add(i + 1);
+                    stratCounts[i]++;
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
@@ -54,14 +66,25 @@
             for (int i = 0; i < m; i++)
             {
                 rowMaxs[i] = U[i, 0];
-                for (int j = 1; j < n; j++) if (U[i, j] > rowMaxs[i]) rowMaxs[i] = U[i, j];
+                for (int j = 1; j < n; j++)
+                {
+                    if (U[i, j] > rowMaxs[i])
+                        rowMaxs[i] = U[i, j];
+                }
                 Console.WriteLine($"max в рядку {i + 1}: {rowMaxs[i]}");
             }
             double maxMax = rowMaxs.Max();
             Console.WriteLine($"\nМаксимальний елемент: {maxMax}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(rowMaxs[i] - maxMax) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(rowMaxs[i] - maxMax) < 1e-9) 
+                {
+                    opt.Add(i + 1); 
+                    stratCounts[i]++; 
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
@@ -69,8 +92,11 @@
         {
             Console.WriteLine("\nКритерій Гурвіца:\n");
             Console.WriteLine($"Коефіцієнт y = {alpha:0.##}\n");
-            for (int i = 0; i < m; i++) Console.WriteLine($"min в рядку {i + 1}: {rowMins[i]}");
-            for (int i = 0; i < m; i++) Console.WriteLine($"max в рядку {i + 1}: {rowMaxs[i]}");
+            for (int i = 0; i < m; i++)
+                Console.WriteLine($"min в рядку {i + 1}: {rowMins[i]}");
+            Console.WriteLine();
+            for (int i = 0; i < m; i++)
+                Console.WriteLine($"max в рядку {i + 1}: {rowMaxs[i]}");
             Console.WriteLine();
 
             double[] vals = new double[m];
@@ -83,7 +109,14 @@
             Console.WriteLine($"\nМаксимальний елемент: {maxVal:0.##}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(vals[i] - maxVal) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(vals[i] - maxVal) < 1e-9)
+                {
+                    opt.Add(i + 1);
+                    stratCounts[i]++;
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
@@ -95,12 +128,18 @@
             for (int j = 0; j < n; j++)
             {
                 double colMax = U[0, j];
-                for (int i = 1; i < m; i++) if (U[i, j] > colMax) colMax = U[i, j];
-                for (int i = 0; i < m; i++) R[i, j] = colMax - U[i, j];
+                for (int i = 1; i < m; i++)
+                {
+                    if (U[i, j] > colMax) 
+                        colMax = U[i, j];
+                }
+                for (int i = 0; i < m; i++)
+                    R[i, j] = colMax - U[i, j];
             }
             for (int i = 0; i < m; i++)
             {
-                for (int j = 0; j < n; j++) Console.Write($"{R[i, j],3} ");
+                for (int j = 0; j < n; j++) 
+                    Console.Write($"{R[i, j],3} ");
                 Console.WriteLine();
             }
             Console.WriteLine();
@@ -109,14 +148,25 @@
             for (int i = 0; i < m; i++)
             {
                 riskMaxs[i] = R[i, 0];
-                for (int j = 1; j < n; j++) if (R[i, j] > riskMaxs[i]) riskMaxs[i] = R[i, j];
+                for (int j = 1; j < n; j++)
+                {
+                    if (R[i, j] > riskMaxs[i])
+                        riskMaxs[i] = R[i, j];
+                }
                 Console.WriteLine($"max в рядку {i + 1}: {riskMaxs[i]}");
             }
             double savageMin = riskMaxs.Min();
             Console.WriteLine($"\nМінімальний елемент: {savageMin}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(riskMaxs[i] - savageMin) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(riskMaxs[i] - savageMin) < 1e-9) 
+                {
+                    opt.Add(i + 1);
+                    stratCounts[i]++;
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
@@ -141,7 +191,14 @@
             Console.WriteLine($"\nМаксимальний елемент: {maxVal:F2}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(vals[i] - maxVal) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(vals[i] - maxVal) < 1e-9)
+                { 
+                    opt.Add(i + 1);
+                    stratCounts[i]++;
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
@@ -166,7 +223,14 @@
             Console.WriteLine($"\nМаксимальний елемент: {maxVal:F2}");
 
             List<int> opt = [];
-            for (int i = 0; i < m; i++) if (Math.Abs(vals[i] - maxVal) < 1e-9) { opt.Add(i + 1); stratCounts[i]++; }
+            for (int i = 0; i < m; i++)
+            {
+                if (Math.Abs(vals[i] - maxVal) < 1e-9)
+                { 
+                    opt.Add(i + 1); 
+                    stratCounts[i]++;
+                }
+            }
             Console.WriteLine($"Оптимальні стратегії: {string.Join(" або ", opt.Select(x => "A" + x))}");
         }
 
