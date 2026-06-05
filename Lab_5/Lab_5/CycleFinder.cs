@@ -15,11 +15,11 @@
         public static List<Point>? FindCycle(bool[,] isBasic, int startI, int startJ)
         {
             int m = isBasic.GetLength(0), n = isBasic.GetLength(1);
-            List<Point> path = [new Point(startI, startJ)];
-            if (DFS(startI, startJ, true, path, isBasic, startI, startJ, m, n)) return path;
-            path.Clear(); path.Add(new Point(startI, startJ));
-            if (DFS(startI, startJ, false, path, isBasic, startI, startJ, m, n)) return path;
-            return null;
+            List<Point> path = [new Point(startI, startJ)]; // Starting point is included in the path
+            if (DFS(startI, startJ, true, path, isBasic, startI, startJ, m, n)) return path; // Try horizontal first
+            path.Clear(); path.Add(new Point(startI, startJ)); // Reset path for the second attempt
+            if (DFS(startI, startJ, false, path, isBasic, startI, startJ, m, n)) return path; // Try vertical first
+            return null; // No cycle found
         }
 
         /// <summary>
@@ -44,19 +44,19 @@
             {
                 for (int j = 0; j < n; j++)
                 {
-                    if (j == currJ) continue;
-                    if (isBasic[currI, j] || (currI == sI && j == sJ))
+                    if (j == currJ) continue; // Skip the current column
+                    if (isBasic[currI, j] || (currI == sI && j == sJ)) // Check if it's a basic cell or the starting cell
                     {
                         if (currI == sI && j == sJ) 
                         { 
-                            if (path.Count >= 4) 
+                            if (path.Count >= 4) // A valid cycle must have at least 4 points (including the starting point)
                                 return true; 
                             continue; 
                         }
-                        if (path.Any(p => p.X == currI && p.Y == j)) continue;
-                        path.Add(new Point(currI, j));
-                        if (DFS(currI, j, !moveHoriz, path, isBasic, sI, sJ, m, n)) return true;
-                        path.RemoveAt(path.Count - 1);
+                        if (path.Any(p => p.X == currI && p.Y == j)) continue; // Skip already visited cells
+                        path.Add(new Point(currI, j)); // Add the new point to the path
+                        if (DFS(currI, j, !moveHoriz, path, isBasic, sI, sJ, m, n)) return true; // Recurse with the new position and toggled direction
+                        path.RemoveAt(path.Count - 1); // Backtrack: remove the last point added to the path
                     }
                 }
             }

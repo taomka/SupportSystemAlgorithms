@@ -123,7 +123,7 @@
             }
             else
             {
-                Console.WriteLine("Опорний розв'язок вже є оптимальним (Фаза 2 не потребувала кроків).\n");
+                Console.WriteLine("Опорний розв'язок вже є оптимальним.\n");
             }
 
             PrintTransportPlanFromSimplex(table, rLabels, m, n, C, "Знайдено оптимальний план перевезень:");
